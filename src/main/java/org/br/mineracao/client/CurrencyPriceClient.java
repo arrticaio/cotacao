@@ -9,7 +9,7 @@ import jakarta.ws.rs.PathParam;
 import org.br.mineracao.dto.CurrencyPriceDTO;
 
 @Path("/last")
-@RegisterRestClient(baseUri="https://economia.awesomeapi.com.br")
+@RegisterRestClient()
 @ApplicationScoped
 public interface CurrencyPriceClient {
 	
