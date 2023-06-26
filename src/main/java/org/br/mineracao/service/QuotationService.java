@@ -31,13 +31,16 @@ public class QuotationService {
 
         CurrencyPriceDTO currencyPriceDTO =  currencyPriceClient.getPricesByPair("USD-BRL");
 
-        if(updateCurrentInfoPrice(currencyPriceDTO)){
-            kafkaEvents.sendNewKafkaEvent(QuotationDTO
-                    .builder()
-                    .currencyPrice(new BigDecimal(currencyPriceDTO.getUSDBRL().getBid()))
-                    .date(LocalDate.now())
-                    .build());
+        if(currencyPriceDTO.getUSDBRL() != null){
+            if(updateCurrentInfoPrice(currencyPriceDTO)){
+                kafkaEvents.sendNewKafkaEvent(QuotationDTO
+                        .builder()
+                        .currencyPrice(new BigDecimal(currencyPriceDTO.getUSDBRL().getBid()))
+                        .date(LocalDate.now())
+                        .build());
+            }
         }
+
     }
 
     private boolean updateCurrentInfoPrice(CurrencyPriceDTO currencyPriceDTO) {
